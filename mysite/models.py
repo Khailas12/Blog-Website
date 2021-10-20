@@ -14,10 +14,3 @@ class TheBlog(models.Model):
 
     def __str__(self):
         return self.title
-    
-    def __iter__(self):
-        return [
-            self.title,
-            self.content,
-            self.author
-        ]

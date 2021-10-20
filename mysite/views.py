@@ -29,7 +29,7 @@ def create_blog(request, *args, **kwargs):
 def blog_view(request, pk, *args, **kwargs):
     try:
         # blog = TheBlog.objects.get(pk=pk)
-        blog = TheBlog.objects.filter(pk=pk)
+        blog = TheBlog.objects.get(id=pk)
     except TheBlog.DoesNotExist:
         raise Http404('Blog not found')
     
