@@ -1,7 +1,7 @@
-from django.contrib import auth
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
+
 
 
 def signup(request, *args, **kwargs):
@@ -9,18 +9,17 @@ def signup(request, *args, **kwargs):
         form = UserCreationForm(request.POST or None)
         
         if form.is_valid():
-            instance = form.save()
-            instance.save()
+            form.save()
 
             username = form.cleaned_data.get('username')
-            password1 = form.cleaned_data.get('password1')
-            user = authenticate(username=username, passsword=password1)
+            the_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, passsword=the_password)
             
             login(request, user)
             return redirect('/')
             
-        else:
-            form = UserCreationForm()
-        
+    else:
+        form = UserCreationForm()
+    
         context = {'form': form}
         return render(request, 'user_auth/signup.html', context)
