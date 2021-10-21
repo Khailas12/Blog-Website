@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
+from .forms import SignUpForm
 
 
 
 def signup(request, *args, **kwargs):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST or None)
+        form = SignUpForm(request.POST or None)
         
         if form.is_valid():
             form.save()
@@ -19,7 +19,7 @@ def signup(request, *args, **kwargs):
             return redirect('/')
             
     else:
-        form = UserCreationForm()
+        form = SignUpForm()
     
         context = {'form': form}
         return render(request, 'user_auth/signup.html', context)
