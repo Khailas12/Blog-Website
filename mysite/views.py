@@ -39,11 +39,7 @@ def create_blog(request, *args, **kwargs):
 @csrf_protect
 @login_required
 def blog_view(request, pk, *args, **kwargs):
-    # try:
-    #     blog = TheBlog.objects.get(pk=pk)
-    # except TheBlog.DoesNotExist:
-    #     raise Http404('Blog not found')
-    
+
     blog = get_object_or_404(TheBlog, pk=pk)
     
     context = {'blog': blog}
