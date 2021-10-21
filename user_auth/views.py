@@ -9,7 +9,10 @@ def signup(request, *args, **kwargs):
         form = SignUpForm(request.POST or None)
         
         if form.is_valid():
-            form.save()
+            user = form.save()
+            
+            user.refresh_form_db()  # loads the profile instance created by signal
+            user.profile.birthday = form.cleaned_data.get('birthday')
 
             username = form.cleaned_data.get('username')
             the_password = form.cleaned_data.get('password1')
