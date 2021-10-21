@@ -11,8 +11,10 @@ def signup(request, *args, **kwargs):
         if form.is_valid():
             user = form.save()
             
-            user.refresh_form_db()  # loads the profile instance created by signal
+            # Retreives the profile instance created by signal by hard refresh from db and calling this fixes the synchronism issue.
+            user.refresh_from_db()  
             user.profile.birthday = form.cleaned_data.get('birthday')
+            user.save()     # saves the user model after refresh which also triggers to save the profile too.
 
             username = form.cleaned_data.get('username')
             the_password = form.cleaned_data.get('password1')
