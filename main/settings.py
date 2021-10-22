@@ -142,4 +142,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = ['static']
 GOOGLE_OAUTH2_CLIENT_SECRETS_JSON = 'client_secrets.json'
