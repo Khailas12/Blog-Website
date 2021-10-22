@@ -4,7 +4,7 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client.contrib.django_util.storage import DjangoORMStorage
 from oauth2client.contrib.django_util.models import CredentialsField
 from oauth2client.contrib import xsrfutil
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from googleapiclient.discovery import build
 from .models import CredentialsModel
 import httplib2
@@ -37,3 +37,21 @@ def gmail_authenticate(request, *args, **kwrgs):
         
         context = {'status': status}
         return render(request, 'index.html', context)
+    
+    
+    
+# callback url
+def auth_return(request, *args, **kwargs):
+    get_state = bytes(request.GET.get('state'), 'utf8')
+    if not xsrfutil.validate_token(
+        settings.SECRET_KEY, get_state, request.user
+        ):
+        return HttpResponseBadRequest()           # 400 status code. request could not be understood by server cz of malformed syntax
+    
+    credential = FLOW.step2_exchange(request.GET.get('code'))
+    storage = DjangoORMStorage(CredentialsModel, 'id', request.user, 'credential')
+    storage.put(credential)
+    
+    print('access_token: % s' % credential.access_token)
+    return HttpResponseRedirect('/')
+    
