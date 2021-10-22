@@ -6,7 +6,7 @@ from django.contrib.auth.views import LogoutView
 from user_auth import views as auth_view
 # from user_auth.views import signup
 from django.conf.urls import url
-
+from google_auth import views as g_view
 
 
 urlpatterns = [
@@ -14,6 +14,9 @@ urlpatterns = [
     path('blog/', create_blog),
     path('blog/<int:pk>/', blog_view),
     
+    url(r'^gmailAuthenticate', g_view.gmail_authenticate, name='gmailauth'),
+    url(r'^outh2callback', g_view.auth_return),
+    url(r'^$ghome', g_view.user_check),
     
     url(r'^signup/$', auth_view.signup, name='signup'),
     # path('signup/', auth_view.signup, name='signup'),

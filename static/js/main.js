@@ -7,3 +7,5 @@ function gmailAuthenticate() {
         }
     });
 };
+
+// Ajax call to Django
