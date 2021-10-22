@@ -10,6 +10,7 @@ from .models import CredentialsModel
 import httplib2
 
 
+
 FLOW = flow_from_clientsecrets(
     settings.GOOGLE_OAUTH2_CLIENT_SECRETS_JSON,
     scope='https://www.googleapis.com/auth/gmail.readonly',
@@ -45,7 +46,7 @@ def auth_return(request, *args, **kwargs):
     get_state = bytes(request.GET.get('state'), 'utf8')
     if not xsrfutil.validate_token(
         settings.SECRET_KEY, get_state, request.user
-        ):
+        ):  # validates token with secret key
         return HttpResponseBadRequest()           # 400 status code. request could not be understood by server cz of malformed syntax
     
     credential = FLOW.step2_exchange(request.GET.get('code'))
@@ -55,3 +56,30 @@ def auth_return(request, *args, **kwargs):
     print('access_token: % s' % credential.access_token)
     return HttpResponseRedirect('/')
     
+    
+# checks whether the user is logged in or not
+def user_check(request, *args, **kwargs):
+    status = True
+    
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('admin')
+    
+    storage = DjangoORMStorage(CredentialsModel, 'id', request.user, 'credential')
+    credential = storage.get()
+    
+    try:
+        access_token = credential.access_token
+        resp, cont = httplib2.Http().request(
+            'https://www.googleapis.com/auth/gmail.readonly',
+            headers={
+                'Host': 'www.googleapis.com',
+                'Authorization': access_token
+            }
+        )
+    
+    except:
+        status = False
+        print('Not found')
+    
+    context = {'status': status}
+    return render(request, 'index.html', context)
