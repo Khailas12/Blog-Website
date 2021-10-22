@@ -26,10 +26,9 @@ def signup(request, *args, **kwargs):
             user.profile.last_name = form.cleaned_data.get('last_name')
             
             user.profile.email = form.cleaned_data.get('email')
-            user.profile.birthday = form.cleaned_data.get('birthday')
             
             user.is_active = False  # false lets the user unable to login until they confirm registration
-            user.save()     # saves the user model after refresh which also triggers to save the profile too.
+            user.save()     # saves the user model after refresh whijch also triggers to save the profile too.
             
             current_site = get_current_site(request)     # this solves the task of hard coding site ID's incase it gets changed, 
 
@@ -81,3 +80,7 @@ def activate(request, uidb64, token, *args, **kwargs):
     else:   # if activation fails
         # return render(request, 'user_auth/activation_invalid.html', {})
         return HttpResponse('Activation link is invalid')
+
+
+def activation_sent_view(request):
+    return HttpResponse('Activation sent! Please Check your email')
