@@ -59,7 +59,7 @@ def auth_return(request, *args, **kwargs):
     
 # checks whether the user is logged in or not
 def user_check(request, *args, **kwargs):
-    status = True
+    status = True   # if user has already logged in frm ggl
     
     if not request.user.is_authenticated:
         return HttpResponseRedirect('admin')
@@ -82,4 +82,4 @@ def user_check(request, *args, **kwargs):
         print('Not found')
     
     context = {'status': status}
-    return render(request, 'index.html', context)
+    return render(request, 'google_auth/main_auth.html', context)
