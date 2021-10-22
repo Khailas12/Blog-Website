@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     'mysite',
     'user_auth',
+    'google_auth'
 
     # # google auth based
     # 'allauth',
@@ -136,3 +137,5 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+GOOGLE_OAUTH2_CLIENT_SECRETS_JSON = 'client_secrets.json'
