@@ -10,12 +10,13 @@ from django.conf.urls import url
 
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='index.html')),
+    path('', TemplateView.as_view(template_name='index.html'), name='home'),
     path('blog/', create_blog),
     path('blog/<int:pk>/', blog_view),
     
-    # url(r'^signup/$', auth_view.signup, name='signup'),
-    path('signup/', auth_view.signup, name='signup'),
+    
+    url(r'^signup/$', auth_view.signup, name='signup'),
+    # path('signup/', auth_view.signup, name='signup'),
     path('sent/', auth_view.activation_sent_view, name='activation_sent'),
     path('activate/<slug:uidb64>/<slug:token>', auth_view.activate, name='activate'),
 

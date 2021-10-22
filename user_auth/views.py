@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 from django.db import IntegrityError
 
 from .forms import SignUpForm
-from .tokens import account_activaton_token
+from .tokens import account_activation_token
 
 
 def signup(request, *args, **kwargs):
@@ -41,7 +41,7 @@ def signup(request, *args, **kwargs):
                     'uid': urlsafe_base64_encode(
                         force_bytes(user.pk)
                         ),
-                    'token': account_activaton_token.make_token(user),
+                    'token': account_activation_token.make_token(user),
             })  # feeds results into Http response
 
             user.email_user(subject, message)
@@ -69,7 +69,7 @@ def activate(request, uidb64, token, *args, **kwargs):
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
         
-    if user is not None and account_activaton_token.check_token(user, token):
+    if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.profile.signup_confirmation = True
         user.save()
