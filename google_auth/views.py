@@ -10,7 +10,6 @@ from .models import CredentialsModel
 import httplib2
 
 
-
 FLOW = flow_from_clientsecrets(
     settings.GOOGLE_OAUTH2_CLIENT_SECRETS_JSON,
     scope='https://www.googleapis.com/auth/gmail.readonly',
@@ -43,7 +42,9 @@ def gmail_authenticate(request, *args, **kwrgs):
     
 # callback url
 def auth_return(request, *args, **kwargs):
-    get_state = bytes(request.GET.get('state'), 'utf8')
+    str_state = request.GET.get('state')
+    get_state = bytes(str_state, 'utf-8')
+
     if not xsrfutil.validate_token(
         settings.SECRET_KEY, get_state, request.user
         ):  # validates token with secret key

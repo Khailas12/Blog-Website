@@ -14,9 +14,9 @@ urlpatterns = [
     path('blog/', create_blog),
     path('blog/<int:pk>/', blog_view),
     
-    url(r'^gmailAuthenticate', g_view.gmail_authenticate, name='gmailauth'),
-    url(r'^outh2callback', g_view.auth_return),
-    url(r'^$ghome', g_view.user_check),
+    url(r'^gmailAuthenticate/', g_view.gmail_authenticate, name='gmailauth'),
+    url(r'^oauth2callback/', g_view.auth_return),
+    url(r'^$ghome/', g_view.user_check),
     
     url(r'^signup/$', auth_view.signup, name='signup'),
     # path('signup/', auth_view.signup, name='signup'),
