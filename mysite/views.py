@@ -1,12 +1,22 @@
-from django.http.response import HttpResponse, HttpResponseRedirect
+from django.db.models import query
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 from .models import TheBlog
 from .forms import BlogForms
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
-from urllib.parse import urlencode
+from django.views.generic import ListView
+from django.db.models import Q
+
+
+class BlogHome(ListView):
+    model = TheBlog
+    template_name = 'index.html'
+    
+    def get_queryset(self):
+        queryset = TheBlog.objects.all()
+
+        return queryset            
 
 
 @csrf_protect
@@ -28,6 +38,7 @@ def create_blog(request, *args, **kwargs):
             # response = HttpResponse(status=302)
             # response = HttpResponseRedirect(f'/blog/{b_id}/')
             # return response
+            return redirect('/')
 
         else:
             Http404

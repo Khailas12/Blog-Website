@@ -51,11 +51,12 @@ def gmail_authenticate(request, *args, **kwrgs):
     
 # callback url
 def auth_return(request, *args, **kwargs):
-    # str_state = request.GET.get('state')
-    # get_state = bytes(str_state, encoding='utf-8')
-    is_private = str(request.GET.get['state'])
+    str_state = request.GET.get('state')
+    get_state = bytes(str_state, encoding='utf-8')
+    # is_private = str(request.GET.get['state'])
+    
     if not xsrfutil.validate_token(
-        settings.SECRET_KEY, is_private, request.user
+        settings.SECRET_KEY, get_state, request.user
         ):  # validates token with secret key
         return HttpResponseBadRequest()           # 400 status code. request could not be understood by server cz of malformed syntax
     

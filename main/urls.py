@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic.base import TemplateView
-from mysite.views import create_blog, blog_view
+from mysite.views import create_blog, blog_view, BlogHome
 from django.contrib.auth.views import LogoutView
 from user_auth import views as auth_view
 # from user_auth.views import signup
@@ -9,10 +9,13 @@ from django.conf.urls import url
 from google_auth import views as g_view
 
 
+
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='index.html'), name='home'),
-    path('blog/', create_blog),
-    path('blog/<int:pk>/', blog_view),
+    path('', BlogHome.as_view()),
+    path('blog/', create_blog, name='blog'),
+    path('blog/<int:pk>/', blog_view, name='blog_vie'),
+    
+    path('accounts/', include('allauth.urls')),
     
     url(r'^gmailAuthenticate/', g_view.gmail_authenticate, name='gmailauth'),
     url(r'^oauth2callback/', g_view.auth_return),

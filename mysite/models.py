@@ -5,7 +5,7 @@ from django.conf import settings
 User = settings.AUTH_USER_MODEL
 
 class TheBlog(models.Model):
-    b_id = models.BigAutoField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)    
 
     title = models.CharField(max_length=120, blank=False)

@@ -1,7 +1,18 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
 
-<h1>Hello World</h1>
+{% for items in queryset %}
+
+<li>
+    {{ items.title }}
+    <br>
+    {{ items.content }}
+    <br>
+    {{ items.author }}
+</li>
+
+{% endfor %}
 
 {% endblock content %}
