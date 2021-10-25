@@ -3,31 +3,40 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 from .models import TheBlog
 from .forms import BlogForms
-from django.http import Http404
+from django.http import Http404, response
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
 from django.db.models import Q
 
 
 
+# def home_view(request, *args, **kwargs):
+#     queryset = TheBlog.objects.all()
+    
+#     if request.GET.keys():
+#         if request.GET.get('src') != '':
+#             keyword = request.GET.get('src')
+#             queryset = TheBlog.objects.filter(
+#                 Q(title=keyword.capitalize()) |
+#                 Q(author=keyword.capitalize())
+#             )
+#         return queryset
+    
+#     context = {'queryset': queryset}
+#     return render(request, 'index.html', context)
+
 def home_view(request, *args, **kwargs):
-    queryset = TheBlog.objects.all()
-    
-    if request.GET.keys():
-        if request.GET.get('src') != '':
-            keyword = request.GET.get('src')
-            queryset = TheBlog.objects.filter(
-                Q(title=keyword.capitalize()) |
-                Q(author=keyword.capitalize())
-            )
-        return queryset
-    
-    context = {'queryset': queryset}
-    return render(request, 'index.html', context)
+    blog = TheBlog.objects.all()
+    if request.GET.get('search'):
+            search = request.GET.get('search')
+            blog = TheBlog.objects.filter(query__icontains=search)
             
+            title = request.GET.get('title')
+            query = TheBlog.objects.create(query=search, user_id=title)
+            query.save()
     
-    context = {'queryset': queryset}
-    return render(request, 'index.html', context)            
+    context = {'blog': blog}
+    return render(request, 'index.html', context)
 
 
 @csrf_protect
