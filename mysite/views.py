@@ -9,14 +9,25 @@ from django.views.generic import ListView
 from django.db.models import Q
 
 
-class BlogHome(ListView):
-    model = TheBlog
-    template_name = 'index.html'
-    
-    def get_queryset(self):
-        queryset = TheBlog.objects.all()
 
-        return queryset            
+def home_view(request, *args, **kwargs):
+    queryset = TheBlog.objects.all()
+    
+    if request.GET.keys():
+        if request.GET.get('src') != '':
+            keyword = request.GET.get('src')
+            queryset = TheBlog.objects.filter(
+                Q(title=keyword.capitalize()) |
+                Q(author=keyword.capitalize())
+            )
+        return queryset
+    
+    context = {'queryset': queryset}
+    return render(request, 'index.html', context)
+            
+    
+    context = {'queryset': queryset}
+    return render(request, 'index.html', context)            
 
 
 @csrf_protect

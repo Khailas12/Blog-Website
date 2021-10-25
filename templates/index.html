@@ -3,16 +3,38 @@
 
 {% block content %}
 
-{% for items in queryset %}
+<h1>Blog Home</h1>
 
-<li>
-    {{ items.title }}
-    <br>
-    {{ items.content }}
-    <br>
-    {{ items.author }}
-</li>
+<form method='GET' action=''>{% csrf_token %}
+    Search Blog: <input name='src' type='text' placeholder="Search" value=''>
+</form>
 
-{% endfor %}
+<center>
+    <table>
+        <tr>
+            <th>ID</th> <th id='title'>Title</th><th>content</th><th>Author</th>
+        </tr>
+        {% for items in queryset %}
+        
+        <tr>
+            <td>
+                {{ items.id }}
+            </td>
+
+            <td>
+                {{ items.title }} 
+            </td>
+
+            <td>
+                {{ items.content }}
+            </td>
+
+            <td>
+                {{ items.author }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</center>
 
 {% endblock content %}
