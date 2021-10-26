@@ -3,8 +3,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 import datetime
 
-from Blog_2.user_auth.forms import YEARS
-
 
 date = datetime.date.today()
 year = date.strftime('%Y')

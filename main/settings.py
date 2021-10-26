@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'mysite',
     'user_auth',
     'google_auth',
+    'register',
+    
+    'crispy_forms',
 
     # # google auth based
     'allauth',
@@ -53,6 +56,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

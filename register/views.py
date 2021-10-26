@@ -5,7 +5,7 @@ from django.contrib import messages
 from .forms import NewUserForm
 
 
-def register(request):
+def register(request, *args, **kwargs):
     if request.method == 'POST':
         form = NewUserForm(request.POST or None)
         
