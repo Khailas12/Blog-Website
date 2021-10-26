@@ -7,7 +7,7 @@ from user_auth import views as auth_view
 # from user_auth.views import signup
 from django.conf.urls import url
 from google_auth import views as g_view
-from register.views import register
+from register.views import register, login
 
 
 urlpatterns = [
@@ -16,6 +16,7 @@ urlpatterns = [
     path('blog/<int:pk>/', blog_view, name='blog_vie'),
     
     path('register', register, name='register'),
+    path('login/', login, name='login'),
     
     path('accounts/', include('allauth.urls')),
     
