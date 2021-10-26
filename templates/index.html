@@ -17,14 +17,11 @@
 <center>
     <table>
         <tr>
-            <th>ID</th> <th id='title'>Title</th><th>content</th><th>Author</th>
+            <th id='title'>Title</th><th>content</th><th>Author</th>
         </tr>
         {% for items in blog %}
         
         <tr>
-            <td>
-                {{ items.id }}
-            </td>
 
             <td>
                 {{ items.title }} 
