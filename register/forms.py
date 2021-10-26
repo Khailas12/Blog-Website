@@ -26,13 +26,13 @@ class NewUserForm(UserCreationForm):
             'email',
             'password1',
             'password2',
-            'birthday'
+            'birthday',
         ]
         
-    # def save(self, commit=True):
-    #     user = super(NewUserForm, self).save(commit=False)
-    #     user.email = self.cleaned_data['email']
-        
-    #     if commit:
-    #         user.save()
-    #     return user
+    def save(self, commit, *args, **kwargs):
+        user = super(NewUserForm, self).save(commit=False, *args, **kwargs)
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+        return user
+            

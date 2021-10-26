@@ -28,7 +28,7 @@ def signup(request, *args, **kwargs):
             user.profile.email = form.cleaned_data.get('email')
             
             user.is_active = False  # false lets the user unable to login until they confirm registration
-            user.save()     # saves the user model after refresh whijch also triggers to save the profile too.
+            user.save()     # saves the user model after refresh which also triggers to save the profile too.
             
             current_site = get_current_site(request)     # this solves the task of hard coding site ID's incase it gets changed, 
 

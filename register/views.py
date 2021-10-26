@@ -9,46 +9,44 @@ from .forms import NewUserForm
 def register(request, *args, **kwargs):
     if request.method == 'POST':
         form = NewUserForm(request.POST or None)
-        
-        if form.is_valid(commit=False):
-            user = form.save()
-            
-            user.refresh_from_db()
-            user.email = form.cleaned_data.get('email')
+
+        if form.is_valid():
+            user = form.save(commit=False)
+            # user.email = form.cleaned_data.get('email')
+            # # user.is_active()
+            # user.save()
             
             login(request, user)
             messages.success(
                 request, 'Registration Succesful'
             )
             return redirect('/')
-        
-        else:
-            messages.error(request, 'Invalid Information, Please try again!')
-        
+
+
+        messages.error(request, 'Invalid Information, Please try again!')
     form = NewUserForm()
+
     context = {'register_form': form}
     return render(request, 'register/register.html', context)
-
 
 
 def login(request, *args, **kwargs):
     if request.method == 'POST':
         login_form = AuthenticationForm(request, data=request.POST or None)
-        
-        if login_form.is_valid(commit=False):
+
+        if login_form.is_valid():
             username = login_form.cleaned_data.get('username')
             password = login_form.cleaned_data.get('password')
-            
+
             user = authenticate(username=username, password=password)
 
-            login(request, user)    
+            login(request, user)
             messages.info(request, f'Welcome {username}')
             return redirect('/')
 
         else:
             messages.error(request, 'Invalid Username or Password')
-    
+
     login_form = AuthenticationForm()
     context = {'login_form': login_form}
-    return render(request, 'register/login.html', context)        
-            
+    return render(request, 'register/login.html', context)
