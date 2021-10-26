@@ -7,27 +7,29 @@ from user_auth import views as auth_view
 # from user_auth.views import signup
 from django.conf.urls import url
 from google_auth import views as g_view
-from register.views import register, login
+from register.views import register, login, logout_user
 
 
 urlpatterns = [
     path('', home_view),
     path('blog/', create_blog, name='blog'),
     path('blog/<int:pk>/', blog_view, name='blog_vie'),
-    
+
     path('register', register, name='register'),
     path('login/', login, name='login'),
-    
+    path('logout/', logout_user, name='logout'),
+
     path('accounts/', include('allauth.urls')),
-    
+
     url(r'^gmailAuthenticate/', g_view.gmail_authenticate, name='gmailauth'),
     url(r'^oauth2callback/', g_view.auth_return),
     url(r'^$ghome/', g_view.user_check),
-    
+
     url(r'^signup/$', auth_view.signup, name='signup'),
     # path('signup/', auth_view.signup, name='signup'),
     path('sent/', auth_view.activation_sent_view, name='activation_sent'),
-    path('activate/<slug:uidb64>/<slug:token>', auth_view.activate, name='activate'),
+    path('activate/<slug:uidb64>/<slug:token>',
+         auth_view.activate, name='activate'),
 
     path('admin/', admin.site.urls),
 ]

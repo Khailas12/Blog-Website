@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserChangeForm
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from .forms import NewUserForm
@@ -14,18 +14,18 @@ def register(request, *args, **kwargs):
             user = form.save(commit=False)
             # user.email = form.cleaned_data.get('email')
             # # user.is_active()
-            # user.save()
+            user.save()
             
             login(request, user)
             messages.success(
                 request, 'Registration Succesful'
             )
             return redirect('/')
-
-
-        messages.error(request, 'Invalid Information, Please try again!')
+        
+        else:
+            messages.error(request, 'Invalid Information, Please try again!')
+            
     form = NewUserForm()
-
     context = {'register_form': form}
     return render(request, 'register/register.html', context)
 
@@ -50,3 +50,9 @@ def login(request, *args, **kwargs):
     login_form = AuthenticationForm()
     context = {'login_form': login_form}
     return render(request, 'register/login.html', context)
+
+
+def logout_user(request, *args, **kwargs):
+    logout(request)
+    messages.info(request, 'Logout Succesful')
+    return redirect('/')
