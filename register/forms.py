@@ -12,7 +12,7 @@ YEARS = [x for x in range(1910, int_year)]
 
 
 class NewUserForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+    email = forms.EmailField(max_length=200, help_text='Required')
     birthday = forms.DateField(
         label='Birthday',
         initial='2000-01-01',

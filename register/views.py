@@ -24,7 +24,7 @@ def register(request, *args, **kwargs):
         if form.is_valid():
             user = form.save(commit=False)
             # user.email = form.cleaned_data.get('email')
-            # # user.is_active()
+            user.is_active = False
             user.save()
             
             current_site = get_current_site(request)
@@ -42,7 +42,7 @@ def register(request, *args, **kwargs):
             
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(
-                mail_subj, message, to=['to_email']
+                mail_subj, message, to=[to_email]
             )
             email.send()
             return HttpResponse('Please confirm your email address')
@@ -60,7 +60,7 @@ def register(request, *args, **kwargs):
     #         messages.error(request, 'Invalid Information, Please try again!')
             
     # form = NewUserForm()
-    context = {'register_form': form}
+    context = {'form': form}
     return render(request, 'register/register.html', context)
 
 
