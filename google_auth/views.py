@@ -48,7 +48,6 @@ def gmail_authenticate(request, *args, **kwrgs):
         return render(request, 'index.html', context)
     
     
-    
 # callback url
 def auth_return(request, *args, **kwargs):
     str_state = request.GET.get('state')
@@ -66,8 +65,8 @@ def auth_return(request, *args, **kwargs):
     
     print('access_token: % s' % credential.access_token)
     return HttpResponseRedirect('/')
-    
-    
+
+
 # checks whether the user is logged in or not
 def user_check(request, *args, **kwargs):
     status = True   # if user has already logged in frm ggl

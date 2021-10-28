@@ -16,7 +16,7 @@ def signup(request, *args, **kwargs):
     if request.method == 'POST':
         form = SignUpForm(request.POST or None)
         
-        if form.is_valid(           ):
+        if form.is_valid():
             user = form.save()
             
             # Retreives the profile instance created by signal by hard refresh from db and calling this fixes the synchronism issue.
@@ -73,7 +73,7 @@ def activate(request, uidb64, token, *args, **kwargs):
         user.is_active = True
         user.profile.signup_confirmation = True
         user.save()
-        
+            
         login(request, user)
         return redirect('/')
     
