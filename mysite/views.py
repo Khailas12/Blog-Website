@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import query
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
@@ -7,7 +8,6 @@ from django.http import Http404, response
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
 from django.db.models import Q
-
 
 
 # def home_view(request, *args, **kwargs):
@@ -27,6 +27,7 @@ from django.db.models import Q
 
 def home_view(request, *args, **kwargs):
     blog = TheBlog.objects.all()
+    
     if request.GET.get('search'):
             search = request.GET.get('search')
             blog = TheBlog.objects.filter(query__icontains=search)
@@ -35,7 +36,9 @@ def home_view(request, *args, **kwargs):
             query = TheBlog.objects.create(query=search, user_id=title)
             query.save()
     
-    context = {'blog': blog}
+    context = {
+        'blog': blog,
+        }
     return render(request, 'index.html', context)
 
 

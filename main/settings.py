@@ -164,7 +164,14 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
         'AUTH_PARAMS': {
             'access_type': 'online',
-        }
+            'auth_type': 'reauthenticate'
+        },
+        'INIT_PARAMS': {
+            'cookie': True
+        },
+        'FIELDS': ['first_name', 'last_name'],
+        'EXCHANGE_TOKENS': True,
+        'LOCALE_FUNC': 'path.to.callable'
     }
 }
 
