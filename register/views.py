@@ -97,7 +97,7 @@ def login(request, *args, **kwargs):
             password = login_form.cleaned_data.get('password')
 
             user = authenticate(username=username, password=password)
-
+            
             login(request, user)
             messages.info(request, f'Welcome {username}')
             return redirect('/')

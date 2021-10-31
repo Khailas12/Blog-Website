@@ -8,6 +8,8 @@ from django.http import Http404, response
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
 from django.db.models import Q
+from django.contrib.auth.models import User
+
 
 
 # def home_view(request, *args, **kwargs):
@@ -27,6 +29,7 @@ from django.db.models import Q
 
 def home_view(request, *args, **kwargs):
     blog = TheBlog.objects.all()
+    # user = User.objects.get('username')
     
     if request.GET.get('search'):
             search = request.GET.get('search')
