@@ -3,13 +3,8 @@ from allauth.account.adapter import DefaultAccountAdapter
 from django.forms import ValidationError
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from google.oauth2 import id_token
-from google.auth.transport import requests
 from .providers import GoogleProviderMod
-from allauth.socialaccount.providers.oauth2.views import (
-    OAuth2Adapter, 
-    OAuth2CallbackView, 
-    OAuth2LoginView
-)
+from allauth.socialaccount.providers.oauth2.views import OAuth2CallbackView, OAuth2LoginView
 
 
 class RestrictEmailAdapter(DefaultAccountAdapter):
