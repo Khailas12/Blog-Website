@@ -1,14 +1,9 @@
-from django.contrib.auth.forms import AuthenticationForm
-from django.db.models import query
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 from .models import TheBlog
 from .forms import BlogForms
-from django.http import Http404, response
+from django.http import Http404
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView
-from django.db.models import Q
-from django.contrib.auth.models import User
 
 
 

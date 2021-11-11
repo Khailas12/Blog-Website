@@ -169,7 +169,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 LOGIN_REDIRECT_URL = '/'    # this redirects url upon succesful login
 ACCOUNT_LOGOUT_REDIRECT_URL = '/login'
-ACCOUNT_ADAPTER = 'main.adapter.RestrictEmailAdapter'   # restricts blocked emails and temporary emails
+ACCOUNT_ADAPTER = 'restful_auth.adapter.RestrictEmailAdapter'   # restricts blocked emails and temporary emails
 
 # additional configs
 ACCOUNT_LOGOUT_ON_GET = True
