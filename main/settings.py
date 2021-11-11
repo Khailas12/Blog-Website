@@ -34,8 +34,10 @@ INSTALLED_APPS = [
     'mysite',
     'user_auth',
     'register',
+    'rest_auth',
     
     'crispy_forms',
+    'rest_framework',
 
     # allauth based
     'allauth',
@@ -159,7 +161,14 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID = 2
+REST_USE_JWT = True
+
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS =1
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 LOGIN_REDIRECT_URL = '/'    # this redirects url upon succesful login
+ACCOUNT_LOGOUT_REDIRECT_URL = '/login'
+
 
 # additional configs
 SOCIALACCOUT_QUERY_EMAIL = True
