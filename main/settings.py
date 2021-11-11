@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'mysite',
     'user_auth',
     'register',
-    'rest_auth',
+    'restful_auth',
     
     'crispy_forms',
     'rest_framework',
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',   # google auth
+    'allauth.socialaccount.providers.facebook',
 ]
 
 
@@ -168,16 +169,59 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 LOGIN_REDIRECT_URL = '/'    # this redirects url upon succesful login
 ACCOUNT_LOGOUT_REDIRECT_URL = '/login'
-
+ACCOUNT_ADAPTER = 'main.adapter.RestrictEmailAdapter'   # restricts blocked emails and temporary emails
 
 # additional configs
-SOCIALACCOUT_QUERY_EMAIL = True
 ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
+SOCIALACCOUT_QUERY_EMAIL = True
+SOCIALACCOUNT_STORE_TOKENS = False
 
 # the scope receives user's email address after succesful login
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'SCOPE': [
+#             'profile',
+#             'email',
+#         ],
+#         'AUTH_PARAMS': {
+#             'access_type': 'online',
+#             'auth_type': 'reauthenticate'
+#         },
+#         'INIT_PARAMS': {
+#             'cookie': True
+#         },
+#         'FIELDS': ['first_name', 'last_name'],
+#         'EXCHANGE_TOKEN': True,
+#         'LOCALE_FUNC': 'path.to.callable',
+#         'VERIFIED_EMAIL': False,
+#     }
+# }
+
 SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email', 'public_profile', 'user_friends'],
+        'AUTH_PARAMS': {'auth_type', 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'gender',
+            'updated_time',
+        ],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': 'path.to.callable',
+        'VERIFIED_EMAIL': False,
+    },
     'google': {
         'SCOPE': [
             'profile',
@@ -185,14 +229,7 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
         'AUTH_PARAMS': {
             'access_type': 'online',
-            'auth_type': 'reauthenticate'
-        },
-        'INIT_PARAMS': {
-            'cookie': True
-        },
-        'FIELDS': ['first_name', 'last_name'],
-        'EXCHANGE_TOKENS': True,
-        'LOCALE_FUNC': 'path.to.callable'
+        }
     }
 }
 
