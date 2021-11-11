@@ -17,7 +17,7 @@ class RestrictEmailAdapter(DefaultAccountAdapter):
             )
         return email
     
-class GoogleOAuthAdapterIdToken(GoogleOAuth2Adapter):
+class GoogleOAuth2AdapterIdToken(GoogleOAuth2Adapter):
     provider_id = GoogleProviderMod.id
     
     def compelte_login(self, request, app, token, *args, **kwargs):
@@ -30,5 +30,5 @@ class GoogleOAuthAdapterIdToken(GoogleOAuth2Adapter):
         login = self.get_provider().sociallogin_from_response(request, extra_data)
         return login
     
-oauth2_login = OAuth2LoginView.adapter_view(GoogleOAuthAdapterIdToken)
-oauth2_callback = OAuth2CallbackView.adapter_view(GoogleOAuthAdapterIdToken)
+oauth2_login = OAuth2LoginView.adapter_view(GoogleOAuth2AdapterIdToken)
+oauth2_callback = OAuth2CallbackView.adapter_view(GoogleOAuth2AdapterIdToken)

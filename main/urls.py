@@ -1,11 +1,12 @@
 from django.contrib import admin
-from django.urls import path, include, re_path
-from django.views.generic.base import TemplateView
+from django.urls import path, include
 from mysite.views import create_blog, blog_view, home_view
-from django.contrib.auth.views import LogoutView
 from user_auth import views as auth_view
 from django.conf.urls import url
 from register.views import register, login, logout_user, activate
+from allauth.socialaccount.providers.oauth2.views import OAuth2CallbackView
+from restful_auth.adapter import GoogleOAuth2AdapterIdToken
+from restful_auth.views import GoogleLoginView
 
 
 urlpatterns = [
@@ -27,6 +28,10 @@ urlpatterns = [
     path('sent/', auth_view.activation_sent_view, name='activation_sent'),
     # path('activate/<slug:uidb64>/<slug:token>', auth_view.activate, name='activate'),
 
+    # restful auth
+    path('login/google', GoogleLoginView.as_view(), name='google_login'),
+    path('login/google/callback', OAuth2CallbackView.adapter_view(GoogleOAuth2AdapterIdToken), name='google_callback'),
+    
     path('admin/', admin.site.urls),
 ]
 
