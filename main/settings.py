@@ -33,7 +33,6 @@ INSTALLED_APPS = [
 
     'mysite',
     'user_auth',
-    'google_auth',
     'register',
     
     'crispy_forms',
