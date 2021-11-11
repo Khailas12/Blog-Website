@@ -4,7 +4,6 @@ from django.views.generic.base import TemplateView
 from mysite.views import create_blog, blog_view, home_view
 from django.contrib.auth.views import LogoutView
 from user_auth import views as auth_view
-# from user_auth.views import signup
 from django.conf.urls import url
 from google_auth import views as g_view
 from register.views import register, login, logout_user, activate
