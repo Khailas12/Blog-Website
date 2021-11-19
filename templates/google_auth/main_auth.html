@@ -2,23 +2,10 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <script src="{% static 'js/main.js' %}"></script>
-    <title>Google Login</title>
+    <form method='POST' action='.'>
+        {% csrf_token %}
+        <script src="{% static 'js/main.js' %}"></script>
+        <title>Google Login</title>
+    </form>
 {% endblock head %}
 
-{% load content %}
-
-<div>
-    <div>
-        
-        {% if not status %}
-            <a href='/gmailAuthenticate' onclick='googleAuthenticate()' title='Google'></a>
-
-        {% else %}
-            <p>Verified</p>
-        {% endif %}
-
-    </div>
-</div>
-
-{% endblock content %}

@@ -163,13 +163,13 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 2
 REST_USE_JWT = True
+JWT_AUTH_COOKIE = 'jwt-auth'
 
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS =1
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 LOGIN_REDIRECT_URL = '/'    # this redirects url upon succesful login
 ACCOUNT_LOGOUT_REDIRECT_URL = '/login'
-ACCOUNT_ADAPTER = 'restful_auth.adapter.Adapter'   # restricts blocked emails and temporary emails
 
 # additional configs
 ACCOUNT_LOGOUT_ON_GET = True

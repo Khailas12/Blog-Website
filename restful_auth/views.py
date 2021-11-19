@@ -11,3 +11,10 @@ class GoogleLoginView(SocialLoginView):
     callback_url = 'http://localhost:8000/api/v1/users/login/google/callbak'
     client_class = OAuth2Client
     serializer_class = SocialLoginSerializer
+    
+    def get_serializer(self, **kwargs):
+        serializer_class = self.get_serializer_class()
+        kwargs['context'] = self.get_serializer_context()
+        return serializer_class(**kwargs)
+    
+google_login = GoogleLoginView.as_view()
