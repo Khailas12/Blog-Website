@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     
     'crispy_forms',
     'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
 
     # allauth based
     'allauth',
