@@ -28,9 +28,9 @@ urlpatterns = [
     path('sent/', auth_view.activation_sent_view, name='activation_sent'),
     # path('activate/<slug:uidb64>/<slug:token>', auth_view.activate, name='activate'),
 
-    # restful auth
-    path('login/google', GoogleLoginView.as_view(), name='google_login'),
-    path('login/google/callback', OAuth2CallbackView.adapter_view(GoogleOAuth2AdapterIdToken), name='google_callback'),
+    # # restful auth
+    # path('login/google', GoogleLoginView.as_view(), name='google_login'),
+    # path('login/google/callback', OAuth2CallbackView.adapter_view(GoogleOAuth2AdapterIdToken), name='google_callback'),
     
     path('admin/', admin.site.urls),
 ]
